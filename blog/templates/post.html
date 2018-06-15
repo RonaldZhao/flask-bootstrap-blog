@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}写文章{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='editormd/css/editormd.min.css') }}">
+    <style>
+    #title {
+        text-align: center;
+        padding: 5px 0;
+        font-size: 20px;
+    }
+    #title, #save_btn {
+        display: block;
+        margin: 10px auto;
+        width: 90%;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <form action="{{ url_for('post') }}" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.title(placeholder="请在这里填写文章标题") }}
+        <div id="post-content">{{ form.content() }}</div>
+        {{ form.save_btn(class="btn btn-primary btn-block") }}
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='editormd/js/editormd.min.js') }}"></script>
+    <script type="text/javascript">
+        var testEditor;
+        $(function () {
+            testEditor = editormd("post-content", {
+                width: "90%",
+                height: 760,
+                //autoHeight: true,
+                path: "{{ url_for('static',filename='editormd/lib/') }}",
+                theme: "dark",
+                previewTheme: "dark",
+                editorTheme : "pastel-on-dark",
+                codeFold : true,
+                saveHTMLToTextarea: true,     // 保存 HTML 到 Textarea
+                emoji: true,
+                taskList: true,
+                tocm: true,                   // Using [TOCM]
+                tex: true,                    // 开启科学公式TeX语言支持，默认关闭
+                flowChart: true,              // 开启流程图支持，默认关闭
+                sequenceDiagram: true,        // 开启时序/序列图支持，默认关闭,
+                //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+                //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+                //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+                //dialogMaskOpacity : 0.4,      // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+                //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+                //imageUpload: true,            // 开启本地上传，默认为false
+                //imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"], // 上面的选项为true时启用
+                {#imageUploadURL : "{{ url_for('static', filename='upload/images/') }}",#}
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}首页{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block index %}active{% endblock %}
+
+{% block content %}
+<div class="container">
+    {#  通知信息开始  #}
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <strong>感谢访问！</strong>
+        <span>本博客初建不久，欢迎并将感谢您访问测试(响应式正在努力实现中)~</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {#  通知信息结束  #}
+
+    {#  轮播图开始  #}
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="{{ url_for('static', filename='images/1.jpg') }}" alt="1th slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>First slide label</h3>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{{ url_for('static', filename='images/2.jpg') }}" alt="2th slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>First slide label</h3>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{{ url_for('static', filename='images/3.jpg') }}" alt="3th slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>First slide label</h3>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{{ url_for('static', filename='images/4.jpg') }}" alt="4th slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>First slide label</h3>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{{ url_for('static', filename='images/5.jpg') }}" alt="5th slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>First slide label</h3>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </a>
+    </div>
+    {#  轮播图结束  #}
+
+    {# 文章列表开始 #}
+    <ul class="list-group list-group-flush">
+        {% for post in posts %}
+        <li class="list-group-item">
+            <div class="page-header">
+                <h1>
+                    <a href="{{ url_for('detail', id=post.id) }}">{{ post.title }}</a>
+                    {% if post in posts[:3] %}
+                    <small class="badge badge-danger">New</small>
+                    {% endif %}
+                </h1>
+                <small>
+                    <i class="fas fa-calendar">{{ post.post_time }}</i>|
+                    <i class="fas fa-user">{{ post.author.user_name }}({{ post.author.email }})</i>|
+                    <i class="fas fa-tags">测试</i></small>
+                <hr>
+                <p>
+                    {{ post.content|truncate(300)|markdown|safe }}
+                    <a href="{{ url_for('detail', id=post.id) }}" class="btn btn-sm btn-info readmore">&gt;&gt;阅读全文</a>
+                </p>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {# 文章列表结束 #}
+</div>
+{% endblock %}

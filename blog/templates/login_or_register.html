@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% if pathname == 'login' %}
+    登录
+{% else %}
+    注册
+{% endif %}
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_or_register.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="wrapper">
+        {% if pathname == 'login' %}
+            <form class="form" action="{{ url_for('login') }}" method="post">
+                {{ form.hidden_tag() }}
+                <div class="title">
+                    <h1>请登录</h1>
+                    {% with messages = get_flashed_messages() %}
+                        {% for message in messages %}
+                            <hr>
+                            <p style="color: red">{{ message }}</p>
+                        {% endfor %}
+                    {% endwith %}
+                </div>
+                {{ form.email(placeholder='邮箱', autofocus='True') }}
+                <i class="fa fa-user"></i>
+                {{ form.password(placeholder='密码') }}
+                <i class="fa fa-key"></i>
+                <a href="{{ url_for('register') }}">还没账号？注册</a>
+                {{ form.submit_btn() }}
+            </form>
+        {% else %}
+        <form class="form" action="{{ url_for('register') }}" method="post">
+            {{ form.hidden_tag() }}
+            <div class="title">
+                <h1>欢迎注册</h1>
+                {% with messages = get_flashed_messages() %}
+                    {% for message in messages %}
+                        <hr>
+                        <p style="color: red">{{ message }}</p>
+                    {% endfor %}
+                {% endwith %}
+            </div>
+            {{ form.user_name(placeholder="用户名(个人资料显示，后期可更改)", autofocus="True") }}
+            <i class="fa fa-user"></i>
+            {{ form.email(placeholder="邮箱(登录用)") }}
+            <i class="fa fa-envelope"></i>
+            {{ form.password(placeholder="密码") }}
+            <i class="fa fa-key"></i>
+            {{ form.password_check(placeholder="确认密码") }}
+            <i class="fa fa-key"></i>
+            <a href="{{ url_for('login') }}">已有账号？去登录</a>
+            {{ form.submit_btn() }}
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

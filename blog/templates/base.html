@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %} | Ronald Zhao's Blog</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.1.1-dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome-all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sticky-footer-navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    {% block styles %}{% endblock %}
+</head>
+<body>
+{% block navbar %}
+<header>
+    <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand text-monospace text-primary">Ronald Zhao的博客</span>
+        <ul class="nav nav-pills mr-auto">
+            <li class="nav-item">
+                <a class="nav-link btn btn-outline-primary {% if pathname == 'index' or pathname == '' %}active{% endif %}" href="{{ url_for('index') }}">
+                    <i class="fas fa-home">首页</i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-outline-primary {% if pathname == 'timeline' %}active{% endif %}" href="{{ url_for('timeline') }}">
+                    <i class="fas fa-history">时光轴</i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-outline-primary" href="https://github.com/RonaldZhao" target="_blank">
+                    <i class="fab fa-github">Github</i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-outline-primary {% if pathname == 'about' %}active{% endif %}" href="{{ url_for('about') }}">
+                    <i class="fas fa-user-circle">关于</i>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav">
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-primary dropdown-toggle {% if pathname == 'editmyinfo' or pathname == 'post' %}active{% endif %}" data-toggle="dropdown" aria-haspopup="true">
+                        <i class="fas fa-cog">{{ current_user.user_name }}</i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item {% if pathname == 'editmyinfo' %}active{% endif %}" href="{{ url_for('editmyinfo') }}">我的信息</a>
+                        <a class="dropdown-item {% if pathname == 'post' %}active{% endif %}" href="{{ url_for('post') }}">写文章</a>
+                        <a class="dropdown-item" href="{{ url_for('logout') }}">退出</a>
+                    </div>
+                </div>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="btn btn-outline-primary {% if pathname == 'register' %}active{% endif %}" href="{{ url_for('register') }}">注册</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-primary {% if pathname == 'login' %}active{% endif %}" href="{{ url_for('login') }}">登录</a>
+            </li>
+            {% endif %}
+        </ul>
+{#        <form class="form-inline">#}
+{#            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">#}
+{#            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>#}
+{#        </form>#}
+    </nav>
+</header>
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+{% block footer %}
+<footer class="footer">
+    <div class="container">
+        <span>Copyright &copy; {{ year }} Ronald Zhao. All rights reserved.</span>
+    </div>
+</footer>
+{% endblock %}
+
+<script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap-4.1.1-dist/js/bootstrap.min.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>
