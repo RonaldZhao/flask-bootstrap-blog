@@ -12,6 +12,7 @@ class User(UserMixin, db.Model):
     user_name = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     password_hash = db.Column(db.String(100), nullable=False)
+    avatar_path = db.Column(db.String(100), default='/static/images/logo.jpg')
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def __init__(self, user_name, email, password):
