@@ -23,3 +23,8 @@ class PostForm(FlaskForm):
     title = StringField(validators=[DataRequired()])
     content = TextAreaField(validators=[DataRequired()])
     save_btn = SubmitField(label='保存')
+
+
+class AlterUserNameForm(FlaskForm):
+    new_user_name = StringField(validators=[DataRequired()])
+    save_btn = SubmitField(label='保存')
