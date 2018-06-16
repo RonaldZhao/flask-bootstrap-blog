@@ -21,7 +21,7 @@ class User(UserMixin, db.Model):
         self.password_hash = generate_password_hash(password)
 
     def __repr__(self):
-        return '<User %r>' % self._user_name
+        return '<User %r>' % self.user_name
 
 
 class Post(db.Model):
