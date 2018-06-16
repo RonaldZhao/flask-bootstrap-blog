@@ -7,7 +7,7 @@ import markdown
 
 from blog import app, db
 from blog.models import User, Post
-from blog.forms import LoginForm, RegisterForm, PostForm
+from blog.forms import LoginForm, RegisterForm, PostForm, AlterUserNameForm
 
 __author__ = 'Ronald Zhao'
 
@@ -104,12 +104,13 @@ def post():
     return render_template('post.html', pathname='post', form=form)
 
 
-@app.route('/editmyinfo')
-def editmyinfo():
+@app.route('/userinfo')
+def userinfo():
     if not current_user.is_authenticated:  # 如果未登录则重定向到登录页
         flash('请先登录！')
         return redirect(url_for('login'))
-    return render_template('editmyinfo.html', pathname='editmyinfo')
+    posts = Post.query.filter_by(user_id=current_user.id).all()
+    return render_template('userinfo.html', pathname='userinfo', posts=posts, form=AlterUserNameForm())
 
 
 @app.route('/detail/<int:id>')
@@ -133,3 +134,15 @@ def editpost(id):
     elif current_user.email != post.author.email:
         return redirect(url_for('index'))
     return render_template('editpost.html', post=post, pathname='post')
+
+
+@app.route('/alterusername', methods=['GET', 'POST'])
+def alterusername():
+    if current_user.is_authenticated:
+        form = AlterUserNameForm()
+        current_user.user_name = form.new_user_name.data
+        db.session.commit()
+        flash('修改成功！')
+        return redirect(url_for('userinfo'))
+    flash('请登录！')
+    return redirect(url_for('login'))
