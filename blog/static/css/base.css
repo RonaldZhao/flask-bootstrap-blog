@@ -1,0 +1,18 @@
+header a, header a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.progress {
+    height: 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.nav-item:not(:last-child) {
+    margin-right: 10px;
+}
+
+.dropdown-menu {
+    min-width: auto;
+}
