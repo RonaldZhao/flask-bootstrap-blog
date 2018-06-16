@@ -41,11 +41,11 @@
             {% if current_user.is_authenticated %}
             <li class="nav-item">
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-outline-primary dropdown-toggle {% if pathname == 'editmyinfo' or pathname == 'post' %}active{% endif %}" data-toggle="dropdown" aria-haspopup="true">
+                    <button type="button" class="btn btn-outline-primary dropdown-toggle {% if pathname == 'userinfo' or pathname == 'post' %}active{% endif %}" data-toggle="dropdown" aria-haspopup="true">
                         <i class="fas fa-cog">{{ current_user.user_name }}</i>
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item {% if pathname == 'editmyinfo' %}active{% endif %}" href="{{ url_for('editmyinfo') }}">我的信息</a>
+                        <a class="dropdown-item {% if pathname == 'userinfo' %}active{% endif %}" href="{{ url_for('userinfo') }}">我的信息</a>
                         <a class="dropdown-item {% if pathname == 'post' %}active{% endif %}" href="{{ url_for('post') }}">写文章</a>
                         <a class="dropdown-item" href="{{ url_for('logout') }}">退出</a>
                     </div>
