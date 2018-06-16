@@ -4,18 +4,32 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='editormd/css/editormd.preview.min.css') }}">
+    <style>
+    #post-title {
+        border-bottom: 1px solid grey;
+        padding: 10px 0;
+        margin-bottom: 10px;
+    }
+    #post-title > h1:first-child {
+        margin: 0;
+        padding: 0;
+        border: none;
+        font-size: 3em;
+    }
+    </style>
 {% endblock %}
 
 {% block content %}
 <div class="container">
     <div id="post">
-        <h1>{{ post.title }}</h1>
-        <small>
-            <i class="fas fa-calendar">{{ post.post_time }}</i>|
-            <i class="fas fa-user">{{ post.author.user_name }}({{ post.author.email }})</i>|
-            <i class="fas fa-tags">测试</i>
-        </small>
-        <hr>
+        <div id="post-title">
+            <h1>{{ post.title }}</h1>
+            <small>
+                <i class="fas fa-calendar">{{ post.post_time }}</i>|
+                <i class="fas fa-user">{{ post.author.user_name }}({{ post.author.email }})</i>|
+                <i class="fas fa-tags">测试</i>
+            </small>
+        </div>
         <textarea style="display: none;">{{ post.content }}</textarea>
         {% if post.author.email == current_user.email %}
         <a href="{{ url_for('editpost', id=post.id) }}" class="btn btn-danger btn-block">编辑</a>
