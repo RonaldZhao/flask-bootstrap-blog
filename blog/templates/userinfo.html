@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ current_user.user_name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            {#  通知信息开始  #}
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {#  通知信息结束  #}
+        {% endfor %}
+    {% endwith %}
+    <div class="info">
+        <img class="rounded float-left" src="{{ current_user.avatar_path }}" alt="头像" style="width: 200px;height: 200px;">
+        <ul class="list-group" style="padding: 1.5px 0;">
+            <li class="list-group-item active">个人信息</li>
+            <li class="list-group-item">用户名：{{ current_user.user_name }}<a href="" class="float-right" data-toggle="modal" data-target="#alterusername">修改</a></li>
+            <li class="list-group-item">邮箱：{{ current_user.email }}</li>
+            <li class="list-group-item">发表文章数：<span class="badge badge-success">{{ current_user.posts|list|length }}</span></li>
+        </ul>
+    </div>
+    {% for post in posts %}
+    <div class="card border-info" style="margin-top: 10px;">
+        <div class="card-header">
+            <h1 class="card-title text-primary">
+                <a href="{{ url_for('detail', id=post.id) }}">{{ post.title }}</a>
+                {% if post in posts[:3] %}
+                    <small class="badge badge-danger">New</small>
+                {% endif %}
+            </h1>
+            <small class="text-secondary">
+                <i class="fas fa-calendar">{{ post.post_time }}</i>|
+                <i class="fas fa-tags">测试</i>
+            </small>
+        </div>
+    </div>
+    {% endfor %}
+    <!-- Modal -->
+    <div class="modal fade" id="alterusername" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">修改用户名</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url_for('alterusername') }}" method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            {{ form.new_user_name(placeholder='请输入新的用户名', class='form-control') }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.save_btn(class='btn btn-danger form-control') }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
