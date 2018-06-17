@@ -93,7 +93,7 @@
         </div>
         <div class="card-body">
             <div class="card-text">
-                {{ post.content|truncate(300)|markdown|safe }}
+                {{ post.content|truncate(300)|markdown }}
             </div>
             <a href="{{ url_for('detail', id=post.id) }}" class="btn btn-sm btn-info readmore card-link">&gt;&gt;阅读全文</a>
         </div>
