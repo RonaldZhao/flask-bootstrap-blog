@@ -1,0 +1,58 @@
+.score {
+    margin: 20px auto;
+    width: 600px;
+}
+
+.score .status-icon {
+    float: left;
+}
+
+.score-expression, .score-praise, .score-heart, .score-star, .score-medal,
+.score-water, .score-crown, .score-flower {
+    overflow: hidden;
+}
+
+.score .status-icon .default-icon {
+    background: url('../images/scoreicon.png') no-repeat top right;
+    display: inline-block;
+    height: 48px;
+    width: 50px;
+    cursor: pointer;
+}
+
+.score-expression .status-icon .default-icon {
+    background-position: top right;
+}
+
+.score-praise .status-icon .default-icon {
+    background-position: right -47px;
+}
+
+.score-heart .status-icon .default-icon {
+    background-position: right -94px;
+}
+
+.score-star .status-icon .default-icon {
+    background-position: right -141px;
+}
+
+.score-medal .status-icon .default-icon {
+    background-position: right -188px;
+}
+
+.score-water .status-icon .default-icon {
+    background-position: right -235px;
+}
+
+.score-crown .status-icon .default-icon {
+    background-position: right -282px;
+}
+
+.score-flower .status-icon .default-icon {
+    background-position: right bottom;
+}
+
+.score-description {
+    line-height: 2em;
+    font-size: 25px;
+}
