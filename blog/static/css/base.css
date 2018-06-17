@@ -1,6 +1,9 @@
-header a, header a:hover {
-    text-decoration: none;
-    color: white;
+a, a:hover {
+    color: #28a745;
+}
+
+.btn-outline-success {
+    border-color: transparent;
 }
 
 .progress {
