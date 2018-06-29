@@ -15,6 +15,7 @@
         background-color: transparent;
     }
     </style>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 {% endblock %}
 
 {% block content %}
@@ -59,6 +60,7 @@
             <i class="fa fa-key"></i>
             {{ form.password_check(placeholder="确认密码") }}
             <i class="fa fa-key"></i>
+            {{ form.recaptcha }}
             <a href="{{ url_for('login') }}">已有账号？去登录</a>
             {{ form.submit_btn() }}
         </form>
