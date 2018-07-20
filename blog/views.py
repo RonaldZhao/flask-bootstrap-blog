@@ -1,13 +1,13 @@
 import datetime
 
+import markdown
 from flask import render_template, redirect, url_for, flash
 from flask_login import LoginManager, current_user, login_user, logout_user
 from werkzeug.security import check_password_hash
-import markdown
 
 from blog import app, db
-from blog.models import User, Post
 from blog.forms import LoginForm, RegisterForm, PostForm, AlterUserNameForm
+from blog.models import User, Post
 
 __author__ = 'Ronald Zhao'
 
@@ -89,6 +89,7 @@ def markdown2html(md):
     pass
 
 
+# TODO: 目前还有BUG， 有时候发布文章的时候会报错，原因未知。。。
 @app.route('/post', methods=['GET', 'POST'])
 def post():
     if not current_user.is_authenticated:  # 如果未登录则重定向到登录页
